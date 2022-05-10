@@ -1,6 +1,9 @@
 package com.example.projekt.controllers;
 
+import com.example.projekt.Authors;
 import com.example.projekt.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +15,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Stack;
@@ -20,8 +24,6 @@ public class AuthorsController {
 
     @FXML
     private ListView authorsList;
-
-
 
     private Stage stage;
     private Scene scene;
@@ -49,5 +51,15 @@ public class AuthorsController {
         }
 
         System.out.println("Dziala");
+    }
+
+    @FXML
+    public void initialize(){
+        try{
+            Authors authors = new Authors();
+            authorsList.setItems(FXCollections.observableArrayList(authors.getAuthors()));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
