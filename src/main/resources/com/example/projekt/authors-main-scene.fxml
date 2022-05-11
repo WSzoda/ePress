@@ -7,11 +7,11 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt.controllers.AuthorsController">
    <children>
-      <ListView fx:id="authorsList" layoutX="14.0" layoutY="49.0" prefHeight="338.0" prefWidth="201.0" />
+      <ListView fx:id="authorsList" layoutX="14.0" layoutY="49.0" onMouseClicked="#handleMouseClick" prefHeight="338.0" prefWidth="201.0" />
       <Button fx:id="backButton" layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#backScene" text="Back" />
       <Button fx:id="addAuthor" layoutX="495.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleAddNewAuthor" text="Add Author" />
-      <Button disable="true" layoutX="489.0" layoutY="72.0" mnemonicParsing="false" text="Delete Author" />
+      <Button fx:id="deleteAuthor" disable="true" layoutX="489.0" layoutY="72.0" mnemonicParsing="false" onAction="#handleDeleteAuthorButton" text="Delete Author" />
       <TextField layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="201.0" />
-      <Button disable="true" layoutX="496.0" layoutY="113.0" mnemonicParsing="false" text="Edit Author" />
+      <Button fx:id="editAuthor" disable="true" layoutX="496.0" layoutY="113.0" mnemonicParsing="false" text="Edit Author" />
    </children>
 </AnchorPane>

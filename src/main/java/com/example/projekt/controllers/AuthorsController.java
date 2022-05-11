@@ -10,9 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
@@ -24,6 +22,20 @@ public class AuthorsController {
 
     @FXML
     private ListView authorsList;
+    @FXML
+    private Button deleteAuthor;
+    @FXML
+    private Button editAuthor;
+
+    @FXML
+    public void initialize(){
+        try{
+            Authors authors = new Authors();
+            authorsList.setItems(FXCollections.observableArrayList(authors.getAuthors()));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     private Stage stage;
     private Scene scene;
@@ -37,7 +49,7 @@ public class AuthorsController {
         stage.show();
     }
     @FXML
-    private void handleAddNewAuthor(ActionEvent event){
+    private void handleAddNewAuthor(){
         TextInputDialog textInput = new TextInputDialog();
 
         textInput.setTitle("Add new Author");
@@ -54,12 +66,23 @@ public class AuthorsController {
     }
 
     @FXML
-    public void initialize(){
-        try{
-            Authors authors = new Authors();
-            authorsList.setItems(FXCollections.observableArrayList(authors.getAuthors()));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+    private void handleMouseClick(){
+        System.out.println(authorsList.getSelectionModel().getSelectedItem());
+        deleteAuthor.setDisable(false);
+        editAuthor.setDisable(false);
+    }
+
+    @FXML
+    private void handleDeleteAuthorButton(ActionEvent event){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Do you want to delete Author?");
+        alert.setContentText("Are you sure, you want to delete Author?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            System.out.println("dupa");
         }
     }
+
 }

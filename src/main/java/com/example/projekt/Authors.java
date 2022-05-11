@@ -30,6 +30,26 @@ public class Authors {
         scanner.close();
         return authors;
     }
+
+    private int getIndexOfAuthor(int id){
+        for(int i = 0; i < authors.size(); i++){
+            if(authors.get(i).getId() == id){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+    private void deleteAuthor(int id) throws FileNotFoundException {
+        int index = getIndexOfAuthor(id);
+        if(index == -1){
+            return;
+        }
+        File authorsFile = new File("src/main/resources/database/authors.txt");
+        Scanner scanner = new Scanner(authorsFile);
+
+    }
 }
 
 class Author {
@@ -45,6 +65,10 @@ class Author {
         this.birthdate = birthdate;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String prepareToSaveToFile(){
         return String.format("%d;%s;%s;%s", id, name, surname, birthdate);
     }
@@ -53,5 +77,6 @@ class Author {
     public String toString() {
         return name + " " +surname;
     }
+
 }
 
