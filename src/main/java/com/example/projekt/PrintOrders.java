@@ -5,12 +5,20 @@ import java.util.List;
 public class PrintOrders {
     List<PrintOrder> printOrders;
 
-    public void fullFillOrder(int id){}
-    public List<PrintOrder> loadOrdersFromFile(){}
-    private int getNextId(){}
-    private void deleteOrder(){}
-    private void addAuthor(){}
+    public void fullFillOrder(int id) {
+    }
 
+    public List<PrintOrder> loadOrdersFromFile() {
+    }
+
+    private int getNextId() {
+    }
+
+    private void deleteOrder() {
+    }
+
+    private void addAuthor() {
+    }
 
 
     public static class PrintOrder {
@@ -36,13 +44,13 @@ public class PrintOrders {
             return amount;
         }
 
-        public String prepareToSaveToFile(){
+        public String prepareToSaveToFile() {
             return String.format("%d;%s;%s;%s", id, bookId, amount);
         }
 
         @Override
         public String toString() {
-            return String.format("Order Id:%s | Book Id %s | Amount: %s", id, bookId, amount)
+            return String.format("Order Id:%s | Book Id %s | Amount: %s", id, bookId, amount);
         }
     }
 }
