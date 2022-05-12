@@ -19,7 +19,7 @@ public class Contracts {
         int id = 0;
         return id;
     }
-    private void addContract(Contract contract) {
+    public void addContract(Contract contract) {
         // contract comes from ui
     }
 
