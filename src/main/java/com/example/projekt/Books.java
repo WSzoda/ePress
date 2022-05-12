@@ -75,7 +75,7 @@ public class Books {
         }
 
         public String prepareToSaveToFile() {
-            return String.format("%d, %d, %s, %s, %s, %s", id, authorsID, title, genre, type, frequency);
+            return String.format("%d;%d;%s;%s;%s;%s", id, authorsID, title, genre, type, frequency);
         }
 
         public String getRequiredQualityOfPrint() {
