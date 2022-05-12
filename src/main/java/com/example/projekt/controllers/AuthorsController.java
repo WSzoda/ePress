@@ -1,5 +1,6 @@
 package com.example.projekt.controllers;
 
+import com.example.projekt.Author;
 import com.example.projekt.Authors;
 import com.example.projekt.Main;
 import javafx.collections.FXCollections;
@@ -26,11 +27,11 @@ public class AuthorsController {
     private Button deleteAuthor;
     @FXML
     private Button editAuthor;
-
+    private Authors authors;
     @FXML
     public void initialize(){
         try{
-            Authors authors = new Authors();
+            authors = new Authors();
             authorsList.setItems(FXCollections.observableArrayList(authors.getAuthors()));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -49,7 +50,7 @@ public class AuthorsController {
         stage.show();
     }
     @FXML
-    private void handleAddNewAuthor(){
+    private void handleAddNewAuthor() throws IOException {
         TextInputDialog textInput = new TextInputDialog();
 
         textInput.setTitle("Add new Author");
@@ -61,7 +62,7 @@ public class AuthorsController {
         if(result.isPresent()){
             authorsList.getItems().add(result);
         }
-
+        authors.addAuthor("Wojtek", "Szoda", "dwadwa");
         System.out.println("Dziala");
     }
 
@@ -73,7 +74,7 @@ public class AuthorsController {
     }
 
     @FXML
-    private void handleDeleteAuthorButton(ActionEvent event){
+    private void handleDeleteAuthorButton(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Do you want to delete Author?");
@@ -81,7 +82,8 @@ public class AuthorsController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            System.out.println("dupa");
+            Author user = (Author) authorsList.getSelectionModel().getSelectedItem();
+            authors.deleteAuthor(user.getId());
         }
     }
 

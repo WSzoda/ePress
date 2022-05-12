@@ -1,7 +1,6 @@
 package com.example.projekt;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -40,43 +39,63 @@ public class Authors {
         return -1;
     }
 
+    private int getNextId() throws IOException {
+        File authorsFile = new File("src/main/resources/database/authors.txt");
+        File authorsFileTemp = new File("src/main/resources/database/authorsTemp.txt");
 
-    private void deleteAuthor(int id) throws FileNotFoundException {
+        BufferedReader reader = new BufferedReader(new FileReader(authorsFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(authorsFileTemp));
+        int id = Integer.parseInt(reader.readLine());
+        writer.write(String.valueOf(id+1));
+        String currentLine;
+        while((currentLine = reader.readLine()) != null){
+            writer.newLine();
+            writer.write(currentLine);
+        }
+        writer.close();
+        reader.close();
+
+        authorsFile.delete();
+        authorsFileTemp.renameTo(authorsFile); //authorsFileTemp.renameTo(authorsFile);
+        return id;
+    }
+
+
+    public void deleteAuthor(int id) throws IOException {
         int index = getIndexOfAuthor(id);
         if(index == -1){
             return;
         }
+
         File authorsFile = new File("src/main/resources/database/authors.txt");
-        Scanner scanner = new Scanner(authorsFile);
+        File authorsFileTemp = new File("src/main/resources/database/authorsTemp.txt");
 
-    }
-}
+        BufferedReader reader = new BufferedReader(new FileReader(authorsFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(authorsFileTemp));
 
-class Author {
-    private int id;
-    private String name;
-    private String surname;
-    private String birthdate;
+        String currentLine;
+        while((currentLine = reader.readLine()) != null){
+            if(Integer.parseInt(currentLine.split(";")[0]) == id){
+                continue;
+            }
+            writer.write(currentLine + "\n");
+        }
+        writer.close();
+        reader.close();
 
-    public Author(int id, String name, String surname, String birthdate) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.birthdate = birthdate;
-    }
-
-    public int getId() {
-        return id;
+        authorsFile.delete();
+        authorsFileTemp.renameTo(authorsFile); //authorsFileTemp.renameTo(authorsFile);
     }
 
-    public String prepareToSaveToFile(){
-        return String.format("%d;%s;%s;%s", id, name, surname, birthdate);
+    public void addAuthor (String name, String surname, String birthdate) throws IOException {
+        int id = getNextId();
+        File authorsFile = new File("src/main/resources/database/authors.txt");
+        BufferedWriter writer = new BufferedWriter(new FileWriter(authorsFile, true));
+        Author newAuthor = new Author(id, name, surname, birthdate);
+        authors.add(newAuthor);
+        writer.newLine();
+        writer.append(newAuthor.prepareToSaveToFile());
+        writer.close();
     }
-
-    @Override
-    public String toString() {
-        return name + " " +surname;
-    }
-
 }
 
