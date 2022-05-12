@@ -32,12 +32,12 @@ public class Books {
     }
 
     private int getIndexOfBook(int id) {
-        //TOOD logick
+        //TODO logic
         return 1;
     }
 
     private int getNextID() {
-        //TOOD logick
+        //TODO logic
         int id = 0;
         return id;
     }
