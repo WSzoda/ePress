@@ -5,11 +5,13 @@ import java.util.List;
 public class PrintOrders {
     List<PrintOrder> printOrders;
 
-    public void fullFillOrder(int id){}
-    public List<PrintOrder> loadOrdersFromFile(){}
+    public void fullFillOrder(int id, Printers.Printer printer){
+        printer.printBooks();
+    }
+    private List<PrintOrder> loadOrdersFromFile(){}
     private int getNextId(){}
-    private void deleteOrder(){}
-    private void addAuthor(){}
+    public void deleteOrder(PrintOrder order){}
+    public void addOrder(PrintOrder order){}
 
 
 

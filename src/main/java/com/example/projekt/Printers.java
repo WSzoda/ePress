@@ -9,5 +9,12 @@ public class Printers {
     public static class Printer {
         private int qualityOfPrint;
         private int printerId;
+
+        public void printBooks(PrintOrders.PrintOrder order) {
+            Warehouse.changeBookAmounts(order.getBookId(), order.getAmount());
+            PrintOrders printOrders = new PrintOrders();
+            printOrders.deleteOrder(order);
+
+        }
     }
 }

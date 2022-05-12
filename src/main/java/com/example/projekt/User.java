@@ -9,21 +9,25 @@ public class User {
     private int privligies;
     private IDepartment department;
 
-    public User(){
+    public User() {
         name = "";
         privligies = 0;
+    }
+
+    public String getSceneName() {
+        return "";
     }
 
     public void logIn(String username, String password) throws FileNotFoundException {
         File file = new File("src/main/resources/database/users.txt");
         Scanner scanner = new Scanner(file);
         String userLine;
-        while (scanner.hasNext()){
+        while (scanner.hasNext()) {
             //user data should have format username;password;privilegeNumber;name
             userLine = scanner.nextLine();
             String[] userInfoArray = userLine.split(";");
 
-            if(userInfoArray[0].equals(username)  && userInfoArray[1].equals(password)){
+            if (userInfoArray[0].equals(username) && userInfoArray[1].equals(password)) {
                 name = userInfoArray[3];
                 privligies = Integer.parseInt(userInfoArray[2]);
                 System.out.println("UDalo sie zalogowac");
@@ -31,8 +35,6 @@ public class User {
             }
         }
     }
-
-
 
 
 }
