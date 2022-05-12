@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class User {
     private String name;
     private int privligies;
+    private IDepartment department;
 
     public User(){
         name = "";

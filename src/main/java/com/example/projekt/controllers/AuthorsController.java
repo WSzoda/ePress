@@ -1,10 +1,8 @@
 package com.example.projekt.controllers;
 
-import com.example.projekt.Author;
 import com.example.projekt.Authors;
 import com.example.projekt.Main;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +15,6 @@ import javafx.stage.Stage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
-import java.util.Stack;
 
 public class AuthorsController {
 
@@ -82,7 +79,7 @@ public class AuthorsController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            Author user = (Author) authorsList.getSelectionModel().getSelectedItem();
+            Authors.Author user = (Authors.Author) authorsList.getSelectionModel().getSelectedItem();
             authors.deleteAuthor(user.getId());
         }
     }
