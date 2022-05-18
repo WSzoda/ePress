@@ -1,9 +1,11 @@
 package com.example.projekt;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Contracts {
+    private final String fileName = "contracts";
     List<Contract> contracts;
 
     public Contracts() {
@@ -14,13 +16,11 @@ public class Contracts {
     }
 
     private int getIndexOfContract(){return 0;}
-    private int getNextID() {
-        //TODO logic
-        int id = 0;
-        return id;
+    private int getNextID() throws IOException {
+        return FileOperator.getNextId(fileName);
     }
-    public void addContract(Contract contract) {
-        // contract comes from ui
+    public void addContract(Contract contract) throws IOException {
+        FileOperator.addNewInstanceToFile(contract.prepareToSaveToFile(), fileName);
     }
 
 

@@ -60,6 +60,8 @@ public class AuthorsController {
             authorsList.getItems().add(result);
         }
         authors.addAuthor("Wojtek", "Szoda", "dwadwa");
+        authors.updateAuthors();
+        authorsList.setItems(FXCollections.observableArrayList(authors.getAuthors()));
         System.out.println("Dziala");
     }
 
@@ -81,6 +83,8 @@ public class AuthorsController {
         if (result.get() == ButtonType.OK){
             Authors.Author user = (Authors.Author) authorsList.getSelectionModel().getSelectedItem();
             authors.deleteAuthor(user.getId());
+            authors.updateAuthors();
+            authorsList.setItems(FXCollections.observableArrayList(authors.getAuthors()));
         }
     }
 

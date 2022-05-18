@@ -1,12 +1,11 @@
 package com.example.projekt;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Books {
+    private final String fileName = "books";
     List<Book> books;
 
     public List<Book> getBooks() {
@@ -18,35 +17,39 @@ public class Books {
     }
 
     private List<Book> loadBookFromFile() throws FileNotFoundException {
-        List<Book> books = new ArrayList<Book>();
-        File booksFile = new File("src/main/resources/database/books.txt");
-        Scanner scanner = new Scanner(booksFile);
-        scanner.nextLine();
-        while (scanner.hasNextLine()) {
-            String booksString = scanner.nextLine();
-            String[] bookElements = booksString.split(";");
+        List<Book> books = new ArrayList<>();
+        ArrayList<String> booksArray = FileOperator.getFileDataAsArray(fileName);
+        for(int i = 0 ; i < booksArray.size(); i++){
+            String[] bookElements = booksArray.get(i).split(";");
             books.add(new Book(Integer.parseInt(bookElements[0]), Integer.parseInt(bookElements[1]), bookElements[2], bookElements[3], bookElements[4], bookElements[5]));
         }
-        scanner.close();
         return books;
     }
 
     private int getIndexOfBook(int id) {
-        //TODO logic
-        return 1;
+        for(int i = 0 ; i < books.size(); i++){
+            int selectedBookId = books.get(i).id;
+            if( selectedBookId == id ){
+                return selectedBookId;
+            }
+        }
+        return -1;
     }
 
-    private int getNextID() {
-        //TODO logic
-        int id = 0;
-        return id;
+    private int getNextID() throws IOException {
+        return FileOperator.getNextId(fileName);
     }
 
-    private void deleteBook(int id) {
+    private void deleteBook(int id) throws IOException {
+        int index = getIndexOfBook(id);
+        if(index == -1){
+            return;
+        }
+        FileOperator.deleteInstanceFromFile(id, fileName);
     }
 
-    private void addBook(Book book) {
-        // book comes from ui
+    private void addBook(Book book) throws IOException {
+        FileOperator.addNewInstanceToFile(book.prepareToSaveToFile(), fileName);
     }
 
     public static class Book {

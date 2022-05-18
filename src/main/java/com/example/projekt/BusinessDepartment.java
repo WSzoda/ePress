@@ -7,4 +7,9 @@ public class BusinessDepartment implements IDepartment{
         PrintOrders printOrders = new PrintOrders();
         printOrders.addOrder(order);
     }
+
+    @Override
+    public void showScene() {
+
+    }
 }
