@@ -1,11 +1,14 @@
 package com.example.projekt;
 
+
+import java.io.IOException;
+
 public class BusinessDepartment implements IDepartment{
     public void addPrintedBooks() {
     }
-    public void createPrintOrder(PrintOrders.PrintOrder order){
+    public void createPrintOrder(int bookId, int amount) throws IOException {
         PrintOrders printOrders = new PrintOrders();
-        printOrders.addOrder(order);
+        printOrders.addOrder(bookId, amount);
     }
 
     @Override

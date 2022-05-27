@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class PrintOrders {
-    private final String fileName = "contracts";
+    private final String FILE_NAME = "contracts";
     List<PrintOrder> printOrders;
 
-    public void fullFillOrder(int id, Printers.Printer printer){
+    public void fullFillOrder(int id, Printers.Printer printer) throws IOException {
         printer.printBooks(findOrder(id));
     }
     private PrintOrder findOrder(int id) {
@@ -21,41 +21,43 @@ public class PrintOrders {
         return null;
     }
     private List<PrintOrder> loadOrdersFromFile() throws FileNotFoundException {
-        List<PrintOrder> orders = new ArrayList<PrintOrder>();
-        File ordersFile = new File("src/main/resources/database/orders.txt");
-        Scanner scanner = new Scanner(ordersFile);
-        scanner.nextLine();
-        while(scanner.hasNextLine()){
-            String ordersString = scanner.nextLine();
-            String[] orderElements = ordersString.split(";");
+        List<PrintOrder> orders = new ArrayList<>();
+        ArrayList<String> ordersArray = FileOperator.getFileDataAsArray(FILE_NAME);
+        for(int i = 0 ; i < ordersArray.size(); i++){
+            String[] orderElements = ordersArray.get(i).split(";");
             orders.add(new PrintOrder(Integer.parseInt(orderElements[0]), Integer.parseInt(orderElements[1]), Integer.parseInt(orderElements[2])));
         }
-        scanner.close();
         return orders;
+    }
+    private int getIndexOfOrder(int id){
+        for(int i = 0; i < printOrders.size(); i++){
+            if(printOrders.get(i).getId() == id){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void updateOrders() throws FileNotFoundException {
+        printOrders = loadOrdersFromFile();
     }
 
     private int getNextId() throws IOException {
-        File ordersFile = new File("src/main/resources/database/orders.txt");
-        File ordersFileTemp = new File("src/main/resources/database/ordersTemp.txt");
-
-        BufferedReader reader = new BufferedReader(new FileReader(ordersFile));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(ordersFileTemp));
-        int id = Integer.parseInt(reader.readLine());
-        writer.write(String.valueOf(id+1));
-        String currentLine;
-        while((currentLine = reader.readLine()) != null){
-            writer.newLine();
-            writer.write(currentLine);
-        }
-        writer.close();
-        reader.close();
-
-        ordersFile.delete();
-        ordersFileTemp.renameTo(ordersFile); //ordersFileTemp.renameTo(ordersFile);
-        return id;
+        return FileOperator.getNextId(FILE_NAME);
     }
-    public void deleteOrder(PrintOrder order){}
-    public void addOrder(PrintOrder order){}
+    public void deleteOrder(PrintOrder order) throws IOException {
+        int index = getIndexOfOrder(order.getId());
+        if(index == -1){
+            return;
+        }
+        FileOperator.deleteInstanceFromFile(order.getId(), FILE_NAME);
+    }
+    public void addOrder(int bookId, int amount) throws IOException {
+        int id = getNextId();
+        PrintOrder newOrder = new PrintOrder(id, bookId, amount);
+        FileOperator.addNewInstanceToFile(newOrder.prepareToSaveToFile(), FILE_NAME);
+        printOrders.add(newOrder);
+    }
 
 
     public static class PrintOrder {

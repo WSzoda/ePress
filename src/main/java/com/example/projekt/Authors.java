@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Authors {
-    private final String fileName = "authors";
+    private final String FILE_NAME = "authors";
     List<Author> authors;
 
     public List<Author> getAuthors() {
@@ -18,7 +18,7 @@ public class Authors {
 
     private List<Author> loadAuthorsFromFile() throws FileNotFoundException {
         List<Author> authors = new ArrayList<Author>();
-        ArrayList<String> authorsArray = FileOperator.getFileDataAsArray(fileName);
+        ArrayList<String> authorsArray = FileOperator.getFileDataAsArray(FILE_NAME);
         for(int i = 0 ; i < authorsArray.size(); i++){
             String[] authorElements = authorsArray.get(i).split(";");
             authors.add(new Author(Integer.parseInt(authorElements[0]), authorElements[1], authorElements[2], authorElements[3]));
@@ -36,7 +36,7 @@ public class Authors {
     }
 
     private int getNextId() throws IOException {
-        return FileOperator.getNextId(fileName);
+        return FileOperator.getNextId(FILE_NAME);
     }
     public void updateAuthors() throws FileNotFoundException {
         this.authors = loadAuthorsFromFile();
@@ -47,13 +47,13 @@ public class Authors {
         if(index == -1){
             return;
         }
-        FileOperator.deleteInstanceFromFile(id, fileName);
+        FileOperator.deleteInstanceFromFile(id, FILE_NAME);
     }
 
     public void addAuthor (String name, String surname, String birthdate) throws IOException {
         int id = getNextId();
         Author newAuthor = new Author(id, name, surname, birthdate);
-        FileOperator.addNewInstanceToFile(newAuthor.prepareToSaveToFile(), fileName);
+        FileOperator.addNewInstanceToFile(newAuthor.prepareToSaveToFile(), FILE_NAME);
         authors.add(newAuthor);
     }
 

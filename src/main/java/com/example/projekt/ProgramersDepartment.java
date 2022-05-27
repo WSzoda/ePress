@@ -8,7 +8,7 @@ public class ProgramersDepartment implements IDepartment {
         contracts.addContract(contract);
     }
 
-    public void orderPrinting(PrintOrders.PrintOrder order, Printers.Printer printer) {
+    public void orderPrinting(PrintOrders.PrintOrder order, Printers.Printer printer) throws IOException {
         PrintOrders printOrders = new PrintOrders();
         printOrders.fullFillOrder(order.getId(), printer);
 

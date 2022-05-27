@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Contracts {
-    private final String fileName = "contracts";
+    private final String FILE_NAME = "contracts";
     List<Contract> contracts;
 
     public Contracts() {
@@ -17,10 +17,10 @@ public class Contracts {
 
     private int getIndexOfContract(){return 0;}
     private int getNextID() throws IOException {
-        return FileOperator.getNextId(fileName);
+        return FileOperator.getNextId(FILE_NAME);
     }
     public void addContract(Contract contract) throws IOException {
-        FileOperator.addNewInstanceToFile(contract.prepareToSaveToFile(), fileName);
+        FileOperator.addNewInstanceToFile(contract.prepareToSaveToFile(), FILE_NAME);
     }
 
 
