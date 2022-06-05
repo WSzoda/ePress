@@ -18,7 +18,7 @@ public class User {
         return "";
     }
 
-    public void logIn(String username, String password) throws FileNotFoundException {
+    public String logIn(String username, String password) throws FileNotFoundException {
         File file = new File("src/main/resources/database/users.txt");
         Scanner scanner = new Scanner(file);
         String userLine;
@@ -30,10 +30,16 @@ public class User {
             if (userInfoArray[0].equals(username) && userInfoArray[1].equals(password)) {
                 name = userInfoArray[3];
                 privligies = Integer.parseInt(userInfoArray[2]);
-                System.out.println("UDalo sie zalogowac");
-                break;
+                return choosePageDependingOnPrivligies(privligies);
             }
         }
+        return null;
+    }
+    private String choosePageDependingOnPrivligies(int privligies) {
+        if (privligies == 1) {
+            return "programowy-page.fxml";
+        }
+        return null;
     }
 
 

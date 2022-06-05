@@ -1,17 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt.controllers.AuthorsController">
-   <children>
-      <ListView fx:id="authorsList" layoutX="14.0" layoutY="49.0" onMouseClicked="#handleMouseClick" prefHeight="338.0" prefWidth="201.0" />
-      <Button fx:id="backButton" layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#backScene" text="Back" />
-      <Button fx:id="addAuthor" layoutX="495.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleAddNewAuthor" text="Add Contract" />
-      <Button fx:id="deleteAuthor" disable="true" layoutX="489.0" layoutY="72.0" mnemonicParsing="false" onAction="#handleDeleteAuthorButton" text="Delete Contract" />
-      <TextField layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="201.0" />
-      <Button fx:id="editAuthor" disable="true" layoutX="496.0" layoutY="113.0" mnemonicParsing="false" text="Edit Contract" />
-   </children>
-</AnchorPane>
+<BorderPane minHeight="400.0" minWidth="600.0" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt.controllers.AuthorsController">
+   <top>
+      <ToolBar maxHeight="50.0" prefWidth="422.0">
+         <items>
+            <Button fx:id="signContract" mnemonicParsing="false" text="Sign Contract" />
+            <Separator orientation="VERTICAL" />
+            <Button fx:id="editContract" disable="true" mnemonicParsing="false" text="Edit Contract" />
+            <Separator orientation="VERTICAL" />
+            <Button fx:id="cancelContract" disable="true" mnemonicParsing="false" text="Cancel Contract" />
+         </items>
+      </ToolBar>
+   </top>
+   <center>
+      <TableView fx:id="contractsTable" onMouseClicked="#handleMouseClick" prefHeight="297.0" prefWidth="576.0" BorderPane.alignment="CENTER">
+         <columns>
+            <TableColumn fx:id="IdCol" prefWidth="48.0" text="Id" />
+            <TableColumn fx:id="NameCol" prefWidth="119.0" text="Contract Type" />
+            <TableColumn fx:id="SurnameCol" prefWidth="256.0" text="Author" />
+            <TableColumn fx:id="ContractedCol" prefWidth="176.0" text="Possition Name" />
+         </columns>
+      </TableView>
+   </center>
+   <bottom>
+      <Button fx:id="backButton" mnemonicParsing="false" onAction="#backScene" text="Back" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>

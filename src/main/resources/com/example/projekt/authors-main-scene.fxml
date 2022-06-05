@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 
@@ -12,17 +11,16 @@
    <top>
       <ToolBar maxHeight="50.0" prefWidth="422.0">
          <items>
-            <TextField prefHeight="25.0" prefWidth="296.0" />
             <Button fx:id="addAuthor" mnemonicParsing="false" onAction="#handleAddNewAuthor" text="Add Author" />
             <Separator orientation="VERTICAL" />
-            <Button fx:id="editAuthor" disable="true" mnemonicParsing="false" text="Edit Author" />
+            <Button fx:id="editAuthor" disable="true" mnemonicParsing="false" onAction="#handleEditAuthor" text="Edit Author" />
             <Separator orientation="VERTICAL" />
             <Button fx:id="deleteAuthor" disable="true" mnemonicParsing="false" onAction="#handleDeleteAuthorButton" text="Delete Author" />
          </items>
       </ToolBar>
    </top>
    <center>
-      <TableView fx:id="authorsTable" prefHeight="297.0" prefWidth="576.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="authorsTable" onMouseClicked="#handleMouseClick" prefHeight="297.0" prefWidth="576.0" BorderPane.alignment="CENTER">
          <columns>
             <TableColumn fx:id="IdCol" prefWidth="48.0" text="Id" />
             <TableColumn fx:id="NameCol" prefWidth="119.0" text="Name" />

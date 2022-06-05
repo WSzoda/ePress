@@ -24,6 +24,28 @@ public abstract class FileOperator {
         file.delete();
         fileTemp.renameTo(file); //fileTemp.renameTo(File);
     }
+
+    public static void editInstanceInFile(int id, String data, String fileName) throws IOException {
+        File file = new File("src/main/resources/database/" + fileName + ".txt");
+        File fileTemp = new File("src/main/resources/database/" + fileName + "temp.txt");
+
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(fileTemp));
+
+        String currentLine;
+        while((currentLine = reader.readLine()) != null){
+            if(Integer.parseInt(currentLine.split(";")[0]) == id){
+                writer.write(data + "\n");
+                continue;
+            }
+            writer.write(currentLine + "\n");
+        }
+        writer.close();
+        reader.close();
+        file.delete();
+        fileTemp.renameTo(file); //fileTemp.renameTo(File);
+    }
+
     public static void addNewInstanceToFile(String data, String fileName) throws IOException {
         File file = new File("src/main/resources/database/" + fileName + ".txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));

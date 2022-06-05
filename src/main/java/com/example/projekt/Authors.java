@@ -35,6 +35,11 @@ public class Authors {
         return -1;
     }
 
+    public void editAuthor(Author author) throws IOException {
+        FileOperator.editInstanceInFile(author.getId(), author.prepareToSaveToFile(), FILE_NAME);
+    }
+
+
     private int getNextId() throws IOException {
         return FileOperator.getNextId(FILE_NAME);
     }

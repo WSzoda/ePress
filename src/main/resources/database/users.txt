@@ -1,2 +1,2 @@
 0
-admin;admin;2;kasia
+admin;admin;1;kasia

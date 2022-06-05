@@ -23,6 +23,15 @@ public class ProgramowyPageController {
         stage.setScene(scene);
         stage.show();
     }
+    @FXML
+    private void logOut(ActionEvent event) throws IOException {
+        root = new FXMLLoader(Main.class.getResource("login-page.fxml")).load();
+        scene = new Scene(root);
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
     @FXML
     private void goToContracts(ActionEvent event) throws IOException {

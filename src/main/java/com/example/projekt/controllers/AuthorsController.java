@@ -3,6 +3,7 @@ package com.example.projekt.controllers;
 import com.example.projekt.Authors;
 import com.example.projekt.Main;
 import javafx.collections.FXCollections;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,7 @@ import javafx.stage.Stage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Optional;
 
 public class AuthorsController {
@@ -36,8 +38,6 @@ public class AuthorsController {
     @FXML
     private TableColumn IdCol;
 
-    @FXML
-    private TextField NameInput;
     private Authors authors;
     @FXML
     public void initialize(){
@@ -66,34 +66,51 @@ public class AuthorsController {
     }
     @FXML
     private void handleAddNewAuthor() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(Main.class.getResource("AuthorsInput.fxml"));
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setDialogPane(fxmlLoader.load());
-        AuthorsInputController inputController = fxmlLoader.getController();
-        Optional<ButtonType> clickedButton = dialog.showAndWait();
-        ArrayList<String> dialogOutput = null;
-        if (clickedButton.get() == ButtonType.APPLY){
-            dialogOutput = inputController.result();
+        ArrayList<String> dialogOutput = handleAuthorDialog(null);
+        if(dialogOutput != null){
             authors.addAuthor(dialogOutput.get(0), dialogOutput.get(1), dialogOutput.get(2));
+            updateAuthors();
         }
     }
+
+    private void updateAuthors() throws FileNotFoundException {
+        authorsTable.setItems(FXCollections.observableArrayList(authors.getAuthors()));
+    }
+    @FXML
     private void handleEditAuthor() throws IOException {
+        Authors.Author author = (Authors.Author) authorsTable.getSelectionModel().getSelectedItem();
+        ArrayList<String> dialogOutput = handleAuthorDialog(author);
+        if(dialogOutput != null){
+            authors.editAuthor(new Authors.Author(author.getId(), dialogOutput.get(0), dialogOutput.get(1), dialogOutput.get(2)));
+        }
+    }
+
+    private ArrayList<String> handleAuthorDialog(Authors.Author author) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(Main.class.getResource("AuthorsInput.fxml"));
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setDialogPane(fxmlLoader.load());
         AuthorsInputController inputController = fxmlLoader.getController();
-        inputController.setData((Authors.Author) authorsTable.getSelectionModel().getSelectedItem(););
-        Optional<ButtonType> clickedButton = dialog.showAndWait();
         ArrayList<String> dialogOutput = null;
+        if(author != null){
+            inputController.setData(author);
+        }
+        Optional<ButtonType> clickedButton = dialog.showAndWait();
+        if (clickedButton.get() == ButtonType.APPLY){
+            dialogOutput = inputController.result();
+        }
+        return dialogOutput;
     }
 
     @FXML
     private void handleMouseClick(){
-        System.out.println(authorsTable.getSelectionModel().getSelectedItem());
-        deleteAuthor.setDisable(false);
-        editAuthor.setDisable(false);
+        if(authorsTable.getSelectionModel().getSelectedItem() != null){
+            deleteAuthor.setDisable(false);
+            editAuthor.setDisable(false);
+        } else {
+            deleteAuthor.setDisable(true);
+            editAuthor.setDisable(true);
+        }
     }
 
     @FXML

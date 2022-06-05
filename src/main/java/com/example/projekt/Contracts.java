@@ -28,6 +28,7 @@ public class Contracts {
         private int contractId;
         private int authorId;
         private String type;
+        private int bookId;
 
         public Contract(int contractId, int authorId, String type) {
             this.contractId = contractId;

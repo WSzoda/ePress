@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -26,5 +27,9 @@ public class AuthorsInputController {
     public void setData(Authors.Author author){
         NameInput.setText(author.getName());
         SurnameInput.setText(author.getSurname());
+        String date = author.getBirthdate();
+        DateTimeFormatter customDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(date, customDateTimeFormatter);
+        DateInput.setValue(localDate);
     }
 }
