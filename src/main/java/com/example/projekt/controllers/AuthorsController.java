@@ -10,11 +10,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class AuthorsController {
@@ -25,12 +27,27 @@ public class AuthorsController {
     private Button editAuthor;
     @FXML
     private TableView authorsTable;
+    @FXML
+    private TableColumn NameCol;
+    @FXML
+    private TableColumn SurnameCol;
+    @FXML
+    private TableColumn BirthDateCol;
+    @FXML
+    private TableColumn IdCol;
+
+    @FXML
+    private TextField NameInput;
     private Authors authors;
     @FXML
     public void initialize(){
         try{
             authors = new Authors();
            authorsTable.setItems(FXCollections.observableArrayList(authors.getAuthors()));
+           NameCol.setCellValueFactory(new PropertyValueFactory<Authors.Author, String>("name"));
+           SurnameCol.setCellValueFactory(new PropertyValueFactory<Authors.Author, String>("surname"));
+           BirthDateCol.setCellValueFactory(new PropertyValueFactory<Authors.Author, String>("birthdate"));
+           IdCol.setCellValueFactory(new PropertyValueFactory<Authors.Author, Integer>("id"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -49,30 +66,27 @@ public class AuthorsController {
     }
     @FXML
     private void handleAddNewAuthor() throws IOException {
-        TextInputDialog textInput = new TextInputDialog();
-
-        textInput.setTitle("Add new Author");
-
-        textInput.getDialogPane().setContentText("Name");
-
-        Optional<String> result = textInput.showAndWait();
-
-        if(result.isPresent()){
-            authorsTable.getItems().add(result);
-        }
-        authors.addAuthor("Wojtek", "Szoda", "dwadwa");
-        authors.updateAuthors();
-        authorsTable.setItems(FXCollections.observableArrayList(authors.getAuthors()));
-        System.out.println("Dziala");
-    }
-
-    @FXML
-    private void showPopup() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("AuthorsInput.fxml"));
-        Pane studentDialogPane = fxmlLoader.load();
-
-        AuthorsController authorsController = fxmlLoader.getController();
+        fxmlLoader.setLocation(Main.class.getResource("AuthorsInput.fxml"));
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setDialogPane(fxmlLoader.load());
+        AuthorsInputController inputController = fxmlLoader.getController();
+        Optional<ButtonType> clickedButton = dialog.showAndWait();
+        ArrayList<String> dialogOutput = null;
+        if (clickedButton.get() == ButtonType.APPLY){
+            dialogOutput = inputController.result();
+            authors.addAuthor(dialogOutput.get(0), dialogOutput.get(1), dialogOutput.get(2));
+        }
+    }
+    private void handleEditAuthor() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(Main.class.getResource("AuthorsInput.fxml"));
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setDialogPane(fxmlLoader.load());
+        AuthorsInputController inputController = fxmlLoader.getController();
+        inputController.setData((Authors.Author) authorsTable.getSelectionModel().getSelectedItem(););
+        Optional<ButtonType> clickedButton = dialog.showAndWait();
+        ArrayList<String> dialogOutput = null;
     }
 
     @FXML

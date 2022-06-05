@@ -44,8 +44,8 @@ public abstract class FileOperator {
         return result;
     }
     public static int getNextId(String fileName) throws IOException {
-        File file = new File("src/main/resources/database/authors.txt" + fileName + ".txt");
-        File tempFile = new File("src/main/resources/database/authors.txt" + fileName + "Temp.txt");
+        File file = new File("src/main/resources/database/" + fileName + ".txt");
+        File tempFile = new File("src/main/resources/database/" + fileName + "Temp.txt");
 
         BufferedReader reader = new BufferedReader(new FileReader(file));
         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));

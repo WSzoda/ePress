@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<DialogPane minHeight="200.0" minWidth="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<DialogPane minHeight="200.0" minWidth="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt.controllers.AuthorsInputController">
    <graphic>
       <GridPane>
         <columnConstraints>
@@ -27,9 +26,9 @@
             <Label text="Name" />
             <Label text="Surname" GridPane.rowIndex="1" />
             <Label text="BirthDate" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="NameInput" GridPane.columnIndex="1" />
+            <TextField fx:id="SurnameInput" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker fx:id="DateInput" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </graphic>
