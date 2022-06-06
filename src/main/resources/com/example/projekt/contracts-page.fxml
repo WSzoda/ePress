@@ -7,25 +7,23 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane minHeight="400.0" minWidth="600.0" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt.controllers.AuthorsController">
+<BorderPane minHeight="400.0" minWidth="600.0" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt.controllers.ContractsController">
    <top>
       <ToolBar maxHeight="50.0" prefWidth="422.0">
          <items>
-            <Button fx:id="signContract" mnemonicParsing="false" text="Sign Contract" />
+            <Button fx:id="signContract" mnemonicParsing="false" onAction="#showPopup" text="Sign Contract" />
             <Separator orientation="VERTICAL" />
-            <Button fx:id="editContract" disable="true" mnemonicParsing="false" text="Edit Contract" />
-            <Separator orientation="VERTICAL" />
-            <Button fx:id="cancelContract" disable="true" mnemonicParsing="false" text="Cancel Contract" />
+            <Button fx:id="cancelContract" disable="true" mnemonicParsing="false" onAction="#cancelSelectedContract" text="Cancel Contract" />
          </items>
       </ToolBar>
    </top>
    <center>
       <TableView fx:id="contractsTable" onMouseClicked="#handleMouseClick" prefHeight="297.0" prefWidth="576.0" BorderPane.alignment="CENTER">
          <columns>
-            <TableColumn fx:id="IdCol" prefWidth="48.0" text="Id" />
-            <TableColumn fx:id="NameCol" prefWidth="119.0" text="Contract Type" />
-            <TableColumn fx:id="SurnameCol" prefWidth="256.0" text="Author" />
-            <TableColumn fx:id="ContractedCol" prefWidth="176.0" text="Possition Name" />
+            <TableColumn fx:id="idCol" prefWidth="48.0" text="Id" />
+            <TableColumn fx:id="contractTypeCol" prefWidth="119.0" text="Contract Type" />
+            <TableColumn fx:id="authorCol" prefWidth="256.0" text="Author" />
+            <TableColumn fx:id="positionTitle" prefWidth="176.0" text="Possition Name" />
          </columns>
       </TableView>
    </center>

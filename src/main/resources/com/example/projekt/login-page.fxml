@@ -16,7 +16,7 @@
          </image>
       </ImageView>
       <TextField fx:id="login" layoutX="225.0" layoutY="168.0" />
-      <TextField fx:id="password" layoutX="226.0" layoutY="231.0" />
+      <TextField fx:id="password" layoutX="226.0" layoutY="231.0" onKeyPressed="#checkEnter" />
       <Button fx:id="loginButton" layoutX="268.0" layoutY="296.0" mnemonicParsing="false" onAction="#tryLogIn" text="Log In">
          <font>
             <Font size="15.0" />

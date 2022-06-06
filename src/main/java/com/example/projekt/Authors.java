@@ -26,7 +26,7 @@ public class Authors {
         return authors;
     }
 
-    private int getIndexOfAuthor(int id){
+    public int getIndexOfAuthor(int id){
         for(int i = 0; i < authors.size(); i++){
             if(authors.get(i).getId() == id){
                 return i;

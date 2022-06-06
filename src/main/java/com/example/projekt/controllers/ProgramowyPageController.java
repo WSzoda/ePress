@@ -35,7 +35,7 @@ public class ProgramowyPageController {
 
     @FXML
     private void goToContracts(ActionEvent event) throws IOException {
-        root = new FXMLLoader(Main.class.getResource("authors-main-scene.fxml")).load();
+        root = new FXMLLoader(Main.class.getResource("contracts-page.fxml")).load();
         scene = new Scene(root);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(scene);

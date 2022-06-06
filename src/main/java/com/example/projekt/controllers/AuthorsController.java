@@ -3,7 +3,6 @@ package com.example.projekt.controllers;
 import com.example.projekt.Authors;
 import com.example.projekt.Main;
 import javafx.collections.FXCollections;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,13 +11,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Optional;
 
 public class AuthorsController {
@@ -30,13 +27,13 @@ public class AuthorsController {
     @FXML
     private TableView authorsTable;
     @FXML
-    private TableColumn NameCol;
+    private TableColumn<Authors.Author, String> NameCol;
     @FXML
-    private TableColumn SurnameCol;
+    private TableColumn<Authors.Author, String> SurnameCol;
     @FXML
-    private TableColumn BirthDateCol;
+    private TableColumn<Authors.Author, String> BirthDateCol;
     @FXML
-    private TableColumn IdCol;
+    private TableColumn<Authors.Author, Integer> IdCol;
 
     private Authors authors;
     @FXML
@@ -44,10 +41,10 @@ public class AuthorsController {
         try{
             authors = new Authors();
            authorsTable.setItems(FXCollections.observableArrayList(authors.getAuthors()));
-           NameCol.setCellValueFactory(new PropertyValueFactory<Authors.Author, String>("name"));
-           SurnameCol.setCellValueFactory(new PropertyValueFactory<Authors.Author, String>("surname"));
-           BirthDateCol.setCellValueFactory(new PropertyValueFactory<Authors.Author, String>("birthdate"));
-           IdCol.setCellValueFactory(new PropertyValueFactory<Authors.Author, Integer>("id"));
+           NameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+           SurnameCol.setCellValueFactory(new PropertyValueFactory<>("surname"));
+           BirthDateCol.setCellValueFactory(new PropertyValueFactory<>("birthdate"));
+           IdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
