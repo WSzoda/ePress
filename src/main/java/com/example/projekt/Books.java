@@ -1,5 +1,8 @@
 package com.example.projekt;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +24,7 @@ public class Books {
         ArrayList<String> booksArray = FileOperator.getFileDataAsArray(fileName);
         for(int i = 0 ; i < booksArray.size(); i++){
             String[] bookElements = booksArray.get(i).split(";");
-            books.add(new Book(Integer.parseInt(bookElements[0]), Integer.parseInt(bookElements[1]), bookElements[2], bookElements[3], bookElements[4], bookElements[5]));
+            books.add(new Book(Integer.parseInt(bookElements[0]), Integer.parseInt(bookElements[1]), bookElements[2], bookElements[3], bookElements[4], bookElements[5], bookElements[6]));
         }
         return books;
     }
@@ -36,7 +39,8 @@ public class Books {
         return -1;
     }
 
-    private int getNextID() throws IOException {
+
+    public int getNextID() throws IOException {
         return FileOperator.getNextId(fileName);
     }
 
@@ -48,25 +52,62 @@ public class Books {
         FileOperator.deleteInstanceFromFile(id, fileName);
     }
 
-    private void addBook(Book book) throws IOException {
+    public void addBook(Book book) throws IOException {
         FileOperator.addNewInstanceToFile(book.prepareToSaveToFile(), fileName);
     }
 
     public static class Book {
         private int id;
         private int authorsID;
+        private String authorsNameSurname;
         private String title;
         private String genre;
         private String type; // book or magazine
         private String frequency; // one time/weekly/monthly
+        private String coverImageName;
+        private ImageView photo;
 
-        public Book(int id, int authorsID, String title, String genre, String type, String frequency) {
+        public Book(int id, int authorsID, String title, String genre, String type, String frequency, String coverImageName) throws FileNotFoundException {
             this.id = id;
             this.authorsID = authorsID;
             this.title = title;
             this.genre = genre;
             this.type = type;
             this.frequency = frequency;
+            this.coverImageName = coverImageName;
+            photo = new ImageView(new Image(this.getClass().getResourceAsStream(coverImageName)));
+            Authors authors = new Authors();
+            int authorIndex = authors.getIndexOfAuthor(authorsID);
+            List<Authors.Author> authorsList = authors.getAuthors();
+            authorsNameSurname = authorsList.get(authorIndex).getName() + " " + authorsList.get(authorIndex).getSurname();
+        }
+
+        public ImageView getPhoto() {
+            return photo;
+        }
+
+        public String getAuthorsNameSurname() {
+            return authorsNameSurname;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getGenre() {
+            return genre;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public String getFrequency() {
+            return frequency;
+        }
+
+        public String getCoverImageName() {
+            return coverImageName;
         }
 
         public int getId() {
@@ -78,14 +119,14 @@ public class Books {
         }
 
         public String prepareToSaveToFile() {
-            return String.format("%d;%d;%s;%s;%s;%s", id, authorsID, title, genre, type, frequency);
+            return String.format("%d;%d;%s;%s;%s;%s;%s", id, authorsID, title, genre, type, frequency, coverImageName);
         }
 
-        public String getRequiredQualityOfPrint() {
+        public boolean needHighQUalityPrinter() {
             if (type.equals("album")) {
-                return "high";
+                return true;
             }
-            return "low";
+            return false;
         }
 
         @Override

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane minHeight="400.0" minWidth="600.0" prefHeight="200.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt.controllers.BooksController">
+   <top>
+      <ToolBar maxHeight="50.0" prefWidth="422.0">
+         <items>
+            <Button fx:id="addAuthor" mnemonicParsing="false" onAction="#handleAddNewBook" text="Add Book" />
+            <Separator orientation="VERTICAL" />
+            <Button fx:id="editAuthor" disable="true" mnemonicParsing="false" text="Edit Book" />
+            <Separator orientation="VERTICAL" />
+            <Button fx:id="deleteAuthor" disable="true" mnemonicParsing="false" text="Delete Book" />
+         </items>
+      </ToolBar>
+   </top>
+   <center>
+      <TableView fx:id="booksTable" prefHeight="297.0" prefWidth="576.0" BorderPane.alignment="CENTER">
+         <columns>
+            <TableColumn fx:id="coverCol" prefWidth="202.0" text="Cover" />
+            <TableColumn fx:id="idCol" prefWidth="32.0" text="Id" />
+            <TableColumn fx:id="titleCol" prefWidth="116.0" text="Title" />
+            <TableColumn fx:id="authorCol" prefWidth="137.0" text="Author" />
+            <TableColumn fx:id="stockCol" prefWidth="112.0" text="Stock" />
+            <TableColumn fx:id="genreCol" prefWidth="75.0" text="Genre" />
+            <TableColumn fx:id="frequencyOfReleasingCol" prefWidth="157.0" text="Frequency of releasing" />
+         </columns>
+      </TableView>
+   </center>
+   <bottom>
+      <Button fx:id="backButton" mnemonicParsing="false" text="Back" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="5.0" />
+         </BorderPane.margin></Button>
+   </bottom>
+</BorderPane>

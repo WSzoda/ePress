@@ -34,6 +34,7 @@ public class Contracts {
         }
         return -1;
     }
+
     private int getNextID() throws IOException {
         return FileOperator.getNextId(FILE_NAME);
     }

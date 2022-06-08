@@ -25,7 +25,6 @@
             <TableColumn fx:id="IdCol" prefWidth="48.0" text="Id" />
             <TableColumn fx:id="NameCol" prefWidth="119.0" text="Name" />
             <TableColumn fx:id="SurnameCol" prefWidth="138.0" text="Surname" />
-            <TableColumn fx:id="ContractedCol" prefWidth="77.0" text="Contracted" />
             <TableColumn fx:id="BirthDateCol" prefWidth="217.0" text="Birth Date" />
          </columns>
       </TableView>
