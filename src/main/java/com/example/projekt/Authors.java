@@ -1,6 +1,7 @@
 package com.example.projekt;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,27 +9,27 @@ public class Authors {
     private final String FILE_NAME = "authors";
     List<Author> authors;
 
-    public List<Author> getAuthors() {
-        return authors;
-    }
-
     public Authors() throws FileNotFoundException {
         this.authors = loadAuthorsFromFile();
     }
 
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
     private List<Author> loadAuthorsFromFile() throws FileNotFoundException {
-        List<Author> authors = new ArrayList<Author>();
+        List<Author> authors = new ArrayList<>();
         ArrayList<String> authorsArray = FileOperator.getFileDataAsArray(FILE_NAME);
-        for(int i = 0 ; i < authorsArray.size(); i++){
-            String[] authorElements = authorsArray.get(i).split(";");
+        for (String s : authorsArray) {
+            String[] authorElements = s.split(";");
             authors.add(new Author(Integer.parseInt(authorElements[0]), authorElements[1], authorElements[2], authorElements[3]));
         }
         return authors;
     }
 
-    public int getIndexOfAuthor(int id){
-        for(int i = 0; i < authors.size(); i++){
-            if(authors.get(i).getId() == id){
+    public int getIndexOfAuthor(int id) {
+        for (int i = 0; i < authors.size(); i++) {
+            if (authors.get(i).getId() == id) {
                 return i;
             }
         }
@@ -43,19 +44,20 @@ public class Authors {
     private int getNextId() throws IOException {
         return FileOperator.getNextId(FILE_NAME);
     }
+
     public void updateAuthors() throws FileNotFoundException {
         this.authors = loadAuthorsFromFile();
     }
 
     public void deleteAuthor(int id) throws IOException {
         int index = getIndexOfAuthor(id);
-        if(index == -1){
+        if (index == -1) {
             return;
         }
         FileOperator.deleteInstanceFromFile(id, FILE_NAME);
     }
 
-    public void addAuthor (String name, String surname, String birthdate) throws IOException {
+    public void addAuthor(String name, String surname, String birthdate) throws IOException {
         int id = getNextId();
         Author newAuthor = new Author(id, name, surname, birthdate);
         FileOperator.addNewInstanceToFile(newAuthor.prepareToSaveToFile(), FILE_NAME);
@@ -63,10 +65,10 @@ public class Authors {
     }
 
     public static class Author {
-        private int id;
-        private String name;
-        private String surname;
-        private String birthdate;
+        private final int id;
+        private final String name;
+        private final String surname;
+        private final String birthdate;
 
         public Author(int id, String name, String surname, String birthdate) throws FileNotFoundException {
             this.id = id;
@@ -75,7 +77,7 @@ public class Authors {
             this.birthdate = birthdate;
         }
 
-        public String getName(){
+        public String getName() {
             return name;
         }
 

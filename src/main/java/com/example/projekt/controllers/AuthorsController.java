@@ -36,48 +36,51 @@ public class AuthorsController {
     private TableColumn<Authors.Author, Integer> IdCol;
 
     private Authors authors;
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
     @FXML
-    public void initialize(){
-        try{
+    public void initialize() {
+        try {
             authors = new Authors();
-           authorsTable.setItems(FXCollections.observableArrayList(authors.getAuthors()));
-           NameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-           SurnameCol.setCellValueFactory(new PropertyValueFactory<>("surname"));
-           BirthDateCol.setCellValueFactory(new PropertyValueFactory<>("birthdate"));
-           IdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+            authorsTable.setItems(FXCollections.observableArrayList(authors.getAuthors()));
+            NameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+            SurnameCol.setCellValueFactory(new PropertyValueFactory<>("surname"));
+            BirthDateCol.setCellValueFactory(new PropertyValueFactory<>("birthdate"));
+            IdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
     @FXML
     private void backScene(ActionEvent event) throws IOException {
         root = new FXMLLoader(Main.class.getResource("programowy-page.fxml")).load();
         scene = new Scene(root);
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
     private void handleAddNewAuthor() throws IOException {
         ArrayList<String> dialogOutput = handleAuthorDialog(null);
-        if(dialogOutput != null){
+        if (dialogOutput != null) {
             authors.addAuthor(dialogOutput.get(0), dialogOutput.get(1), dialogOutput.get(2));
             updateAuthors();
         }
     }
 
-    private void updateAuthors(){
+    private void updateAuthors() {
         authorsTable.setItems(FXCollections.observableArrayList(authors.getAuthors()));
     }
+
     @FXML
     private void handleEditAuthor() throws IOException {
         Authors.Author author = (Authors.Author) authorsTable.getSelectionModel().getSelectedItem();
         ArrayList<String> dialogOutput = handleAuthorDialog(author);
-        if(dialogOutput != null){
+        if (dialogOutput != null) {
             authors.editAuthor(new Authors.Author(author.getId(), dialogOutput.get(0), dialogOutput.get(1), dialogOutput.get(2)));
         }
     }
@@ -89,19 +92,19 @@ public class AuthorsController {
         dialog.setDialogPane(fxmlLoader.load());
         AuthorsInputController inputController = fxmlLoader.getController();
         ArrayList<String> dialogOutput = null;
-        if(author != null){
+        if (author != null) {
             inputController.setData(author);
         }
         Optional<ButtonType> clickedButton = dialog.showAndWait();
-        if (clickedButton.get() == ButtonType.APPLY){
+        if (clickedButton.get() == ButtonType.APPLY) {
             dialogOutput = inputController.result();
         }
         return dialogOutput;
     }
 
     @FXML
-    private void handleMouseClick(){
-        if(authorsTable.getSelectionModel().getSelectedItem() != null){
+    private void handleMouseClick() {
+        if (authorsTable.getSelectionModel().getSelectedItem() != null) {
             deleteAuthor.setDisable(false);
             editAuthor.setDisable(false);
         } else {
@@ -118,7 +121,7 @@ public class AuthorsController {
         alert.setContentText("Are you sure, you want to delete Author?");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
+        if (result.get() == ButtonType.OK) {
             Authors.Author user = (Authors.Author) authorsTable.getSelectionModel().getSelectedItem();
             authors.deleteAuthor(user.getId());
             authors.updateAuthors();

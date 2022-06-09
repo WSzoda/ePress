@@ -16,7 +16,8 @@ public class AuthorsInputController {
     private TextField SurnameInput;
     @FXML
     private DatePicker DateInput;
-    public ArrayList<String> result(){
+
+    public ArrayList<String> result() {
         ArrayList<String> result = new ArrayList<>();
         result.add(NameInput.getText());
         result.add(SurnameInput.getText());
@@ -24,7 +25,7 @@ public class AuthorsInputController {
         return result;
     }
 
-    public void setData(Authors.Author author){
+    public void setData(Authors.Author author) {
         NameInput.setText(author.getName());
         SurnameInput.setText(author.getSurname());
         String date = author.getBirthdate();

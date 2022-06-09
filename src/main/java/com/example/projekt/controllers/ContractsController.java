@@ -42,14 +42,16 @@ public class ContractsController {
     private void initialize() throws FileNotFoundException {
         loadTable();
     }
+
     @FXML
     private void backScene(ActionEvent event) throws IOException {
         root = new FXMLLoader(Main.class.getResource("programowy-page.fxml")).load();
         scene = new Scene(root);
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
     private void showPopup() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -61,26 +63,24 @@ public class ContractsController {
         Button btnLogin = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
         setEventListenerOnButtonOK(btnLogin, inputController);
         Optional<ButtonType> clickedButton = dialog.showAndWait();
-        if (clickedButton.get() == ButtonType.OK){
+        if (clickedButton.get() == ButtonType.OK) {
             inputController.createNewContract();
             loadTable();
         }
     }
-    private void setEventListenerOnButtonOK(Button button, SignContractController inputController){
+
+    private void setEventListenerOnButtonOK(Button button, SignContractController inputController) {
         button.addEventFilter(ActionEvent.ACTION, event -> {
-            if(inputController.dataNotSet()){
+            if (inputController.dataNotSet()) {
                 event.consume();
                 inputController.showDataNotSetAlert();
             }
         });
     }
+
     @FXML
-    private void handleMouseClick(){
-        if(contractsTable.getSelectionModel().getSelectedItem() != null){
-            cancelContract.setDisable(false);
-        } else {
-            cancelContract.setDisable(true);
-        }
+    private void handleMouseClick() {
+        cancelContract.setDisable(contractsTable.getSelectionModel().getSelectedItem() == null);
     }
 
     private void loadTable() throws FileNotFoundException {
@@ -91,13 +91,14 @@ public class ContractsController {
         authorCol.setCellValueFactory(new PropertyValueFactory<>("authorsNameAndSurname"));
         positionTitle.setCellValueFactory(new PropertyValueFactory<>("positionName"));
     }
+
     @FXML
     private void cancelSelectedContract() throws IOException {
         Contracts.Contract selectedItem = (Contracts.Contract) contractsTable.getSelectionModel().getSelectedItem();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Are you sure you want to cancel this contract?");
         Optional<ButtonType> selectedButton = alert.showAndWait();
-        if(selectedButton.get() == ButtonType.OK){
+        if (selectedButton.get() == ButtonType.OK) {
             contracts.cancelContract(selectedItem.getContractId());
             cancelContract.setDisable(true);
             loadTable();

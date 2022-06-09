@@ -1,6 +1,5 @@
 package com.example.projekt.controllers;
 
-import com.example.projekt.Authors;
 import com.example.projekt.Books;
 import com.example.projekt.Main;
 import com.example.projekt.Warehouse;
@@ -44,19 +43,21 @@ public class BooksController {
     private Stage stage;
     private Scene scene;
     private Parent root;
+
     @FXML
     private void backScene(ActionEvent event) throws IOException {
         root = new FXMLLoader(Main.class.getResource("programowy-page.fxml")).load();
         scene = new Scene(root);
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
     private void backScene2(ActionEvent event) throws IOException {
         root = new FXMLLoader(Main.class.getResource("handlowy-page.fxml")).load();
         scene = new Scene(root);
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
@@ -88,19 +89,15 @@ public class BooksController {
         ArrayList<String> dialogOutput = null;
         setEventListenerOnButtonOK(btnLogin, addBookController);
         Optional<ButtonType> clickedButton = dialog.showAndWait();
-        if(clickedButton.get() == ButtonType.OK){
+        if (clickedButton.get() == ButtonType.OK) {
             addBookController.createNewBook();
             loadTable();
         }
     }
 
     @FXML
-    private void handleMouseClick(){
-        if(booksTable.getSelectionModel().getSelectedItem() != null){
-            deleteBook.setDisable(false);
-        } else {
-            deleteBook.setDisable(true);
-        }
+    private void handleMouseClick() {
+        deleteBook.setDisable(booksTable.getSelectionModel().getSelectedItem() == null);
     }
 
     @FXML
@@ -111,7 +108,7 @@ public class BooksController {
         alert.setContentText("Are you sure, you want to delete Book?");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
+        if (result.get() == ButtonType.OK) {
             Books.Book book = (Books.Book) booksTable.getSelectionModel().getSelectedItem();
             Warehouse warehouse = new Warehouse();
             warehouse.deleteRecordForBook(book.getId());
@@ -122,11 +119,11 @@ public class BooksController {
     }
 
 
-    private void setEventListenerOnButtonOK(Button button, AddBookController inputController){
+    private void setEventListenerOnButtonOK(Button button, AddBookController inputController) {
         button.addEventFilter(ActionEvent.ACTION, event -> {
-                if(inputController.dataNotSet()){
-                    event.consume();
-                    inputController.showErrorAlert();
+            if (inputController.dataNotSet()) {
+                event.consume();
+                inputController.showErrorAlert();
             }
         });
     }

@@ -13,8 +13,8 @@ public abstract class FileOperator {
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileTemp));
 
         String currentLine;
-        while((currentLine = reader.readLine()) != null){
-            if(Integer.parseInt(currentLine.split(";")[0]) == id){
+        while ((currentLine = reader.readLine()) != null) {
+            if (Integer.parseInt(currentLine.split(";")[0]) == id) {
                 continue;
             }
             writer.write(currentLine + "\n");
@@ -33,8 +33,8 @@ public abstract class FileOperator {
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileTemp));
 
         String currentLine;
-        while((currentLine = reader.readLine()) != null){
-            if(Integer.parseInt(currentLine.split(";")[0]) == id){
+        while ((currentLine = reader.readLine()) != null) {
+            if (Integer.parseInt(currentLine.split(";")[0]) == id) {
                 writer.write(data + "\n");
                 continue;
             }
@@ -53,18 +53,20 @@ public abstract class FileOperator {
         writer.append(data);
         writer.close();
     }
+
     public static ArrayList<String> getFileDataAsArray(String fileName) throws FileNotFoundException {
         File file = new File("src/main/resources/database/" + fileName + ".txt");
         Scanner scanner = new Scanner(file);
         scanner.nextLine();
         ArrayList<String> result = new ArrayList<>();
-        while(scanner.hasNextLine()){
+        while (scanner.hasNextLine()) {
             String authorString = scanner.nextLine();
             result.add(authorString);
         }
         scanner.close();
         return result;
     }
+
     public static int getNextId(String fileName) throws IOException {
         File file = new File("src/main/resources/database/" + fileName + ".txt");
         File tempFile = new File("src/main/resources/database/" + fileName + "Temp.txt");
@@ -72,9 +74,9 @@ public abstract class FileOperator {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
         int id = Integer.parseInt(reader.readLine());
-        writer.write(String.valueOf(id+1));
+        writer.write(String.valueOf(id + 1));
         String currentLine;
-        while((currentLine = reader.readLine()) != null){
+        while ((currentLine = reader.readLine()) != null) {
             writer.newLine();
             writer.write(currentLine);
         }

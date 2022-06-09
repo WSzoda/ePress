@@ -10,6 +10,7 @@ public class User {
     public User() {
         privligies = 0;
     }
+
     public String logIn(String username, String password) throws FileNotFoundException {
         File file = new File("src/main/resources/database/users.txt");
         Scanner scanner = new Scanner(file);
@@ -26,6 +27,7 @@ public class User {
         }
         return null;
     }
+
     private String choosePageDependingOnPrivligies(int privligies) {
         if (privligies == 1) {
             return "programowy-page.fxml";

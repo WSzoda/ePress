@@ -15,19 +15,21 @@ public class ProgramowyPageController {
     private Stage stage;
     private Scene scene;
     private Parent root;
+
     @FXML
     private void goToAuthors(ActionEvent event) throws IOException {
         root = new FXMLLoader(Main.class.getResource("authors-main-scene.fxml")).load();
         scene = new Scene(root);
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
     private void logOut(ActionEvent event) throws IOException {
         root = new FXMLLoader(Main.class.getResource("login-page.fxml")).load();
         scene = new Scene(root);
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
@@ -37,7 +39,7 @@ public class ProgramowyPageController {
     private void goToContracts(ActionEvent event) throws IOException {
         root = new FXMLLoader(Main.class.getResource("contracts-page.fxml")).load();
         scene = new Scene(root);
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
@@ -46,7 +48,7 @@ public class ProgramowyPageController {
     private void goToPossitions(ActionEvent event) throws IOException {
         root = new FXMLLoader(Main.class.getResource("books-page.fxml")).load();
         scene = new Scene(root);
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
