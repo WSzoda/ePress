@@ -2,6 +2,7 @@ package com.example.projekt.controllers;
 
 import com.example.projekt.Authors;
 import com.example.projekt.Books;
+import com.example.projekt.Warehouse;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -164,9 +165,11 @@ public class AddBookController {
         } else {
             frequency = (String) frequencyPicker.getSelectionModel().getSelectedItem();
         }
-
         Books books = new Books();
-        Books.Book book = new Books.Book(books.getNextID(), id, title, genre, type, frequency, coverImageName);
+        int bookId = books.getNextID();
+        Books.Book book = new Books.Book(bookId, id, title, genre, type, frequency, coverImageName);
         books.addBook(book);
+        Warehouse warehouse = new Warehouse();
+        warehouse.addRecord(bookId, 0);
     }
 }

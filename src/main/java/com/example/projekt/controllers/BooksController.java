@@ -3,6 +3,7 @@ package com.example.projekt.controllers;
 import com.example.projekt.Authors;
 import com.example.projekt.Books;
 import com.example.projekt.Main;
+import com.example.projekt.Warehouse;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -104,6 +105,8 @@ public class BooksController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             Books.Book book = (Books.Book) booksTable.getSelectionModel().getSelectedItem();
+            Warehouse warehouse = new Warehouse();
+            warehouse.deleteRecordForBook(book.getId());
             books.deleteBook(book.getId());
             books.updateBooks();
             booksTable.setItems(FXCollections.observableArrayList(books.getBooks()));

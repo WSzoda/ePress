@@ -11,11 +11,6 @@ public class Printers {
         private int qualityOfPrint;
         private int printerId;
 
-        public void printBooks(PrintOrders.PrintOrder order) throws IOException {
-            Warehouse.changeBookAmounts(order.getBookId(), order.getAmount());
-            PrintOrders printOrders = new PrintOrders();
-            printOrders.deleteOrder(order);
 
-        }
     }
 }

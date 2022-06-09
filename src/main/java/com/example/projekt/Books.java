@@ -29,7 +29,7 @@ public class Books {
         return books;
     }
 
-    private int getIndexOfBook(int id) {
+    public int getIndexOfBook(int id) {
         for(int i = 0 ; i < books.size(); i++){
             int selectedBookId = books.get(i).id;
             if( selectedBookId == id ){

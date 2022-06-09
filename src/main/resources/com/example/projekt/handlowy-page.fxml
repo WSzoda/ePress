@@ -12,8 +12,8 @@
             <Image url="@../../../images/logo_transparent.png" />
          </image>
       </ImageView>
-      <Button layoutX="271.0" layoutY="335.0" mnemonicParsing="false" text="Log Out" />
-      <Button layoutX="266.0" layoutY="224.0" mnemonicParsing="false" text="Possitions" />
-      <Button layoutX="278.0" layoutY="256.0" mnemonicParsing="false" text="Shop" />
+      <Button fx:id="logOut" layoutX="271.0" layoutY="335.0" mnemonicParsing="false" onAction="#logOut" text="Log Out" />
+      <Button fx:id="goToPossitionsButton" layoutX="266.0" layoutY="224.0" mnemonicParsing="false" onAction="#goToPossitions" text="Possitions" />
+      <Button fx:id="shopButton" layoutX="278.0" layoutY="256.0" mnemonicParsing="false" onAction="#goToShop" text="Shop" />
    </children>
 </AnchorPane>
