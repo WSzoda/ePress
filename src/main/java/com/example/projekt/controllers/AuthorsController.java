@@ -70,7 +70,7 @@ public class AuthorsController {
         }
     }
 
-    private void updateAuthors() throws FileNotFoundException {
+    private void updateAuthors(){
         authorsTable.setItems(FXCollections.observableArrayList(authors.getAuthors()));
     }
     @FXML

@@ -39,12 +39,16 @@ public class Books {
         return -1;
     }
 
+    public void updateBooks() throws FileNotFoundException {
+        books = loadBookFromFile();
+    }
+
 
     public int getNextID() throws IOException {
         return FileOperator.getNextId(fileName);
     }
 
-    private void deleteBook(int id) throws IOException {
+    public void deleteBook(int id) throws IOException {
         int index = getIndexOfBook(id);
         if(index == -1){
             return;
@@ -75,7 +79,8 @@ public class Books {
             this.type = type;
             this.frequency = frequency;
             this.coverImageName = coverImageName;
-            photo = new ImageView(new Image(this.getClass().getResourceAsStream(coverImageName)));
+            System.out.println();
+            photo = new ImageView(new Image(System.getProperty("user.dir") + "\\src\\main\\resources\\images\\" + coverImageName));
             Authors authors = new Authors();
             int authorIndex = authors.getIndexOfAuthor(authorsID);
             List<Authors.Author> authorsList = authors.getAuthors();

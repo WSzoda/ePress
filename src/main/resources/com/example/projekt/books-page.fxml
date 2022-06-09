@@ -14,27 +14,24 @@
          <items>
             <Button fx:id="addAuthor" mnemonicParsing="false" onAction="#handleAddNewBook" text="Add Book" />
             <Separator orientation="VERTICAL" />
-            <Button fx:id="editAuthor" disable="true" mnemonicParsing="false" text="Edit Book" />
-            <Separator orientation="VERTICAL" />
-            <Button fx:id="deleteAuthor" disable="true" mnemonicParsing="false" text="Delete Book" />
+            <Button fx:id="deleteBook" disable="true" mnemonicParsing="false" onAction="#handleDeleteBook" text="Delete Book" />
          </items>
       </ToolBar>
    </top>
    <center>
-      <TableView fx:id="booksTable" prefHeight="297.0" prefWidth="576.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="booksTable" onMouseClicked="#handleMouseClick" prefHeight="297.0" prefWidth="576.0" BorderPane.alignment="CENTER">
          <columns>
             <TableColumn fx:id="coverCol" prefWidth="202.0" text="Cover" />
             <TableColumn fx:id="idCol" prefWidth="32.0" text="Id" />
             <TableColumn fx:id="titleCol" prefWidth="116.0" text="Title" />
             <TableColumn fx:id="authorCol" prefWidth="137.0" text="Author" />
-            <TableColumn fx:id="stockCol" prefWidth="112.0" text="Stock" />
             <TableColumn fx:id="genreCol" prefWidth="75.0" text="Genre" />
             <TableColumn fx:id="frequencyOfReleasingCol" prefWidth="157.0" text="Frequency of releasing" />
          </columns>
       </TableView>
    </center>
    <bottom>
-      <Button fx:id="backButton" mnemonicParsing="false" text="Back" BorderPane.alignment="CENTER">
+      <Button fx:id="backButton" mnemonicParsing="false" onAction="#backScene" text="Back" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets top="5.0" />
          </BorderPane.margin></Button>

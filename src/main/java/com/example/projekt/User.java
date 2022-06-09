@@ -39,6 +39,12 @@ public class User {
         if (privligies == 1) {
             return "programowy-page.fxml";
         }
+        if (privligies == 2) {
+            return "handlowy-page.fxml";
+        }
+        if (privligies == 3) {
+            return "druku-page.fxml";
+        }
         return null;
     }
 

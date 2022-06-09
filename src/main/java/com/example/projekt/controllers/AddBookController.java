@@ -118,7 +118,8 @@ public class AddBookController {
         if(image == null){
             return;
         }
-        File dest = new File("../../../images/" + image.getName());
+        System.out.println(System.getProperty("user.dir"));
+        File dest = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\images\\" + image.getName());
         Files.copy(image.toPath(), dest.toPath());
     }
 
