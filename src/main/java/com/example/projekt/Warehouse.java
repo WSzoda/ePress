@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Warehouse {
     private List<MagazineRecord> stocks;
-    private final String FILE_NAME = "stock";
+    private final String FILE_NAME = "stocks";
 
     public Warehouse() throws FileNotFoundException {
         stocks = loadStocksFromFile();

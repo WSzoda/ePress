@@ -1,2 +1,3 @@
-13
-9;11;Umowa o pracę;Niedotyczy
+2
+0;0;Umowa o pracę;Niedotyczy
+1;0;Umowa o dzieło;dwa

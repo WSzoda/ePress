@@ -52,6 +52,14 @@ public class BooksController {
         stage.setScene(scene);
         stage.show();
     }
+    @FXML
+    private void backScene2(ActionEvent event) throws IOException {
+        root = new FXMLLoader(Main.class.getResource("handlowy-page.fxml")).load();
+        scene = new Scene(root);
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
 
     @FXML
     private void initialize() throws FileNotFoundException {

@@ -27,7 +27,7 @@ public class HandlowyPageController {
 
     @FXML
     private void goToShop(ActionEvent event) throws IOException {
-        root = new FXMLLoader(Main.class.getResource("handlowy-page.fxml")).load();
+        root = new FXMLLoader(Main.class.getResource("shopPage.fxml")).load();
         scene = new Scene(root);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -36,7 +36,7 @@ public class HandlowyPageController {
 
     @FXML
     private void goToPossitions(ActionEvent event) throws IOException {
-        root = new FXMLLoader(Main.class.getResource("books-scene.fxml")).load();
+        root = new FXMLLoader(Main.class.getResource("books-page2.fxml")).load();
         scene = new Scene(root);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(scene);

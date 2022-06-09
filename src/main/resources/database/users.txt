@@ -1,2 +1,3 @@
 0
-admin;admin;1;kasia
+admin;admin;1
+handlowy;handlowy;2
